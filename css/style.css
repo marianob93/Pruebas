@@ -1,0 +1,95 @@
+body {
+    background-color: rgb(240, 226, 209);
+}
+
+main{
+    display: flex;
+    justify-content: center;
+
+}
+
+#semaforo {
+    background-color: black;
+    border-radius: 25%;
+    width: 75px;
+    height: 200px;
+
+    
+}
+.luz {
+    width: 50px;
+    height: 50px;
+    margin: 10px auto;
+    background-color: rgb(106, 109, 109);
+    border-radius: 60%;
+}
+
+
+#boton {
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+    border-radius: 45%;
+    background-color: rgb(80, 80, 243);
+}
+#boton:hover {
+    background-color: rgb(157, 28, 243);
+    cursor: pointer;
+}
+/* #luz-roja {
+    background-color: red; 
+}
+#luz-amarilla {
+    background-color: rgb(243, 247, 22);
+}
+#luz-verde {
+    background-color: rgb(17, 206, 49);
+}  */
+.luz-roja {
+    background-color: red;
+    box-shadow: 0 0 20px red; /* Un brillo extra opcional */
+}
+
+.luz-amarilla {
+    background-color: rgb(243, 247, 22);
+    box-shadow: 0 0 20px rgb(243, 247, 22);
+}
+
+.luz-verde {
+    background-color: rgb(17, 206, 49);
+    box-shadow: 0 0 20px rgb(17, 206, 49);
+}
+
+.mesa{
+    display: flex;
+}
+
+#dado{
+    height: 45px;
+    width: 45px;
+    margin-left: 10px;
+    margin-top: 70px;
+    border-radius: 15%;
+}
+#dado:hover {
+    cursor: pointer;
+    box-shadow: 0 0 15px black;
+    background-color: rgba(113, 121, 128, 0.884);
+}
+
+#tablero {
+    width: 150px;
+    height: 150px;
+    border: 2px solid rgb(153, 82, 35);
+    background-color: green;
+    border-radius: 5%;
+    /* Para centrar la imagen dentro del tablero */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.imagen-dado {
+    width: 50%;       /* Que ocupe todo el ancho del tablero */
+    height: 50%;      /* Que ocupe todo el alto */
+    object-fit: contain; /* Para que la imagen no se deforme/estire feo */
+}
