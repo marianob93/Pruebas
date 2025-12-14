@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <div id="main-screen">
+        <h3>The Silver Forest</h3>
+        <div class="villain-screen"> 
+            <img src="/assets/img/Ogre.png" alt="" class="portrait">
+            <div class="hp"></div>
+        </div>
+        <div class="scenario-screen"><img src="/assets/img/Silver-forest.png" alt="" class="scenario" ></div>
+        <div class="hero-screen">
+            <div class="hp box-1"></div>
+            <div class="box-menu" id="menu-principal">
+            <div class="box-2"><button class="action-button" id="basic-attack"></button></div>
+            <div class="box-3"><button class="action-button" id="usar-habilidades">Habilidades</button></div>
+            <div class="box-4"><button class="action-button" id="usar-items">Objetos</button></div>
+            <div class="box-5"><button class="action-button">Escapar</button></div>
+            </div>
+            <div id="menu-habilidades" class="box-menu oculto">
+            <div class="box-2"><button class="action-button" id="skill-corte">Corte Espada (20 MP)</button></div>
+            <div class="box-3"><button class="action-button" id="skill-curar">Curación (10 MP)</button></div>
+            <div class="box-4"><button class="action-button" ></button></div>
+            <div class="box-5"><button class="action-button" id="btn-volver" style="background-color: #7f8c8d;">↩ Volver</button></div>
+<!--            <div class="box-2">
+                <button id="skill-corte" class="action-button">Corte (20 MP)</button>
+                </div>
+                <div class="box-3">
+                <button id="skill-fuego" class="action-button">Fuego (10 MP)</button>
+                </div>
+                <div class="box-4">
+                <button id="skill-curar" class="action-button">Curar (5 MP)</button>
+                </div>
+                <div class="box-5">
+                <button id="btn-volver" class="action-button" style="background-color:#7f8c8d;">↩ Volver</button>
+                </div> -->
+            </div>
+            <div class="box-6"><img src="/assets/img/Hero.png" class="portrait"></div>
+        </div>
+        
+    </div>
+
+
+<br><br><br><br><br><br><br><br>
+    <a href="../index.html">Home</a>
+    <script src="../javascript/battle.js"></script>
+</body>
+</html>

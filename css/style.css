@@ -93,3 +93,107 @@ main{
     height: 50%;      /* Que ocupe todo el alto */
     object-fit: contain; /* Para que la imagen no se deforme/estire feo */
 }
+
+#main-screen {
+    text-align: center;
+    height:800px ;
+    border-width: medium , 5px , black;
+    width: 800px;
+    background-color: rgba(31, 30, 30, 0.856);
+    box-shadow: 15px 15px 15px rgb(158, 158, 158);
+    border-radius: 5%;
+    
+}
+
+.portrait {
+    height: 190px;
+    margin: 5px;
+
+}
+.scenario {
+    height: 300px;
+}
+.hp {
+    width: 400px;
+    height: 30px;
+    background-color: rgb(60, 255, 0);
+    border: 2px solid black;
+    border-radius: 5px;
+    margin: 10px ;
+}
+
+.villain-screen {
+    display: inline-flex;
+    border:3px solid black;
+    border-radius: 6%;
+    width: 700px;
+    margin-top :10px ;
+    margin-bottom: 10px;
+}
+
+/* .hero-screen {
+    border:3px solid black;
+    border-radius: 5%;
+    margin-top :10px ;
+    margin-bottom: 10px;
+    margin-left: 200px; */
+.hero-screen {
+    display: grid;
+  /* Definimos 3 columnas de igual ancho (1fr 1fr 1fr) */
+  /* Las dos primeras son para la izquierda, la tercera para el bloque 5 */
+    grid-template-columns: 1fr 1fr 1.5fr; 
+  /* Definimos la altura de las filas (automáticas según contenido) */
+    grid-template-rows: auto 1fr;
+  /* Aquí está la "magia": dibujamos tu esquema con nombres */
+    grid-template-areas: 
+    "area1 area1 area6"
+    "area2 area2 area6";  
+    gap: 10px; /* Espacio entre cajas */
+    height: 200px; /* Altura de ejemplo */
+    width: 700px;
+    border-radius: 6%;
+    margin-left: 60px;
+    margin-top:10px;
+    border:3px solid black;
+}
+.box-1 { grid-area: area1;  }
+/* .box-2 { grid-area: area2;  }
+.box-3 { grid-area: area3;  }
+.box-4 { grid-area: area4;  }
+.box-5 { grid-area: area5;  } */
+.box-menu {grid-area:area2}
+.box-6 { grid-area: area6;  }
+
+.box-menu {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "boton1 boton2"
+    "boton3 boton4";
+    gap: 10px;
+}
+
+.box-2 { grid-area: boton1;  }
+.box-3 { grid-area: boton2;  }
+.box-4 { grid-area: boton3;  }
+.box-5 { grid-area: boton4;  }
+
+.action-button{
+    height: 30px;
+    border-radius: 10%;
+    background-color: rgb(137, 182, 235);
+
+}
+
+.oculto {
+  display: none !important; /* El !important asegura que se oculte sí o sí */
+}
+
+.turno-enemigo {
+    pointer-events: none; /* Esto hace que no se pueda clickear nada */
+    opacity: 0.6;         /* Se ve un poco transparente/apagado */
+    filter: grayscale(1); /* Opcional: Se pone en blanco y negro */
+    transition: all 5s;
+}
+
