@@ -5,17 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Unicase:wght@300;400;500;600;700&display=swap');
+</style>
 </head>
 <body>
     <div id="main-screen">
-        <h3>The Silver Forest</h3>
+        <div class="titulo"><h3>The Silver Forest</h3></div>
         <div class="villain-screen"> 
             <img src="/assets/img/Ogre.png" alt="" class="portrait">
-            <div class="hp"></div>
+            <div class="hp barra-contenedor">
+            <div id="barra-fill-villano" class="barra-relleno"></div>
+            <span id="vida-villano" class="barra-texto">300 / 300</span>
+            </div>
         </div>
-        <div class="scenario-screen"><img src="/assets/img/Silver-forest.png" alt="" class="scenario" ></div>
+        <div id="combat-log" class="log-window">
+            <p>--- Inicio del combate ---</p>
+        </div>
+
         <div class="hero-screen">
-            <div class="hp box-1"></div>
+            <div class="hp box-1 barra-contenedor">
+            <div id="barra-fill-heroe" class="barra-relleno"></div>
+            <span id="vida-heroe" class="barra-texto">250 / 250</span>
+            </div>
             <div class="box-menu" id="menu-principal">
             <div class="box-2"><button class="action-button" id="basic-attack"></button></div>
             <div class="box-3"><button class="action-button" id="usar-habilidades">Habilidades</button></div>
@@ -44,8 +56,6 @@
         </div>
         
     </div>
-
-
 <br><br><br><br><br><br><br><br>
     <a href="../index.html">Home</a>
     <script src="../javascript/battle.js"></script>

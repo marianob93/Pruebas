@@ -2,14 +2,14 @@ const libroDeHabilidades = {
 ataque: {nombre: "Ataque Básico",dañoBase: 10,tipo:"físico",objetivo:"atacar"},
 defensa: {nombre: "Guardia Básica",reduccionFisico: 0.2,tipo:"físico",objetivo:"defender"},
 barrera: {nombre: "Barrera Básica",reduccionMagica: 0.2,tipo:"mágico",objetivo:"defender"},
-corte: {nombre: "Corte Espada",dañoBase: 25,tipo:"físico",objetivo:"atacar"},
+corte: {nombre: "Corte Espada",dañoBase: 26,tipo:"físico",objetivo:"atacar"},
 fuego: {nombre: "Bola de Fuego",dañoBase: 20,tipo:"mágico",objetivo:"atacar"},
 curacion: {nombre: "Toque Sanador",curacionBase: 35,tipo:"mágico",objetivo:"curar"},
 golpe: {nombre: "Golpe Fuerte",dañoBase: 25,tipo:"físico",objetivo:"atacar"},
 derribo :{nombre: "Derribo",dañoBase: 15,tipo:"físico",objetivo:"atacar"}
 };
 const botonAtaque = document.getElementById('basic-attack');
-const hero = {name: "Ejaroc",clase:"Guerrero",fuerza:16,defensa:10,agilidad:8,vidaMax:250,vidaActual:250,reduccionDanio:0,proteccionActual:0,
+const hero = {name:"Ejaroc",clase:"Guerrero",fuerza:16,defensa:10,agilidad:8,vidaMax:250,vidaActual:250,reduccionDanio:0,proteccionActual:0,
     listaHabilidades: ["ataque", "corte","defensa", "curacion"]
 }
 const villain = {name: "Vruakbog",clase:"Berserker",fuerza:17,defensa:8,agilidad:7,vidaMax:300,vidaActual:300,reduccionDanio:0,proteccionActual:0,
@@ -41,16 +41,19 @@ if (atacante.listaHabilidades.includes(claveHabilidad)) {
         // Aplicamos la reducción
         dañoTotal = Math.floor(dañoTotal * multiplicador); // Math.floor para redondear y quitar decimales
         
-        console.log(`¡${objetivo.name} se protegió! El daño se redujo.`);
+        agregarLog(`¡${objetivo.name} se protegió! El daño se redujo.`);
 
         // IMPORTANTE: El escudo se gasta tras el golpe
         objetivo.proteccionActual = 0; 
     }            
             // Aquí el objetivo es el ENEMIGO que recibimos en la función
             objetivo.vidaActual -= dañoTotal;
-            console.log(`${atacante.name} lanza ${habilidad.nombre} a ${objetivo.name}!`);
-            console.log(`Causa ${dañoTotal} de daño. Vida restante de ${objetivo.name}: ${objetivo.vidaActual}`);
+            if (objetivo.vidaActual < 0) {objetivo.vidaActual = 0;}
+            agregarLog(`${atacante.name} lanza ${habilidad.nombre} a ${objetivo.name}!`);
+            agregarLog(`Causa ${dañoTotal} de daño. Vida restante de ${objetivo.name}: ${objetivo.vidaActual}`);
+            actualizarBarras();
             cambiarTurno();
+
 
         } else if (habilidad.objetivo === "curar") {
             // ------------------------------------
@@ -63,13 +66,16 @@ if (atacante.listaHabilidades.includes(claveHabilidad)) {
             if (atacante.vidaActual > atacante.vidaMax) {
                 atacante.vidaActual = atacante.vidaMax;
             }
-            console.log(`${atacante.name} usa ${habilidad.nombre} y se cura ${sanacion} puntos. Vida actual: ${atacante.vidaActual}`);
+            agregarLog(`${atacante.name} usa ${habilidad.nombre} y se cura ${sanacion} puntos. Vida actual: ${atacante.vidaActual}`);
+            actualizarBarras();
             cambiarTurno();
 
         } else if (habilidad.objetivo === "defender") {
             const protección = habilidad.reduccionFisico ;
             atacante.proteccionActual = atacante.reduccionDanio + protección ;
-            console.log(`${atacante.name} usa ${habilidad.nombre}, ahora recibirá ${atacante.proteccionActual * 100}% menos de daño !`);
+            agregarLog(`${atacante.name} usa ${habilidad.nombre}, ahora recibirá ${atacante.proteccionActual * 100}% menos de daño !`);
+
+            actualizarBarras();
             cambiarTurno();
 
         }
@@ -86,22 +92,22 @@ if (atacante.listaHabilidades.includes(claveHabilidad)) {
     console.log(`Causa ${dañoTotal} de daño. Vida restante de ${objetivo.name}: ${objetivo.vidaActual}`);
     objetivo.reduccionDaño = 0; */
 } else {
-    console.log(`${atacante.name} intentó usar una habilidad que no conoce.`);
+    agregarLog(`${atacante.name} intentó usar una habilidad que no conoce.`);
 }
 }
 
-botonAtaque.innerText = libroDeHabilidades.ataque.nombre;
+/* botonAtaque.innerText = libroDeHabilidades.ataque.nombre;
 
 document.getElementById('basic-attack').addEventListener('click', function() {
     usarHabilidad(hero, villain, 'ataque');
 });
-
+ */
 
 function activarDefensa(personaje) {
   // Le decimos que para el próximo golpe, ignore el 30% del daño (0.3)
 personaje.reduccionDaño = 0.3; 
 
-console.log(`${personaje.name} levanta su escudo. Recibirá 20% menos de daño.`);
+agregarLog(`${personaje.name} levanta su escudo. Recibirá 20% menos de daño.`);
 }
 
 const menuPrincipal = document.getElementById('menu-principal');
@@ -192,11 +198,11 @@ let turnoActual = "hero"; // El juego empieza con el jugador
 
 function verificarMuerte() {
     if (hero.vidaActual <= 0) {
-        alert("¡Has perdido!");
+        agregarLog("--- Has perdido ---");
         return true; // Alguien murió
     }
     if (villain.vidaActual <= 0) {
-        alert("¡Has ganado!");
+        agregarLog("--- Has ganado ---");
         return true; // Alguien murió
     }
     return false; // Siguen vivos
@@ -208,22 +214,21 @@ function cambiarTurno() {
     // 2. Alternamos el turno
     if (turnoActual === "hero") {
         turnoActual = "villain";
-        console.log("--- Turno del Enemigo ---");        
+        agregarLog("--- Turno del Enemigo ---");        
         // Bloqueamos visualmente al jugador
         document.querySelector('.hero-screen').classList.add('turno-enemigo');        
         // Llamamos a la IA del enemigo
         iniciarIAEnemigo();
     } else {
         turnoActual = "hero";
-        console.log("--- Tu Turno ---");
+        agregarLog("--- Tu Turno ---");
         // Desbloqueamos al jugador
         document.querySelector('.hero-screen').classList.remove('turno-enemigo');
     }
 }
 function iniciarIAEnemigo() {
     // Esperamos 1.5 segundos para que parezca que "piensa"
-    setTimeout(() => {
-        
+    setTimeout(() => {        
         // 1. ELEGIR HABILIDAD ALEATORIA
         // Math.random() da un numero entre 0 y 1.
         // Lo multiplicamos por la cantidad de habilidades del villano.
@@ -241,7 +246,7 @@ function iniciarIAEnemigo() {
     }, 1500); // 1500 milisegundos = 1.5 segundos
 }
 // Iniciamos el primer turno
-console.log("--- Tu Turno ---");
+agregarLog("--- Tu Turno ---");
 
 document.addEventListener("DOMContentLoaded", function() {
     // 1. Asignamos texto al botón de ataque
@@ -272,3 +277,76 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 });
+
+/* function actualizarBarras() {
+    // --- ACTUALIZAR HÉROE ---
+    const barraHeroe = document.getElementById('hero-hp');
+    
+    // 1. Actualizamos el Texto (Ej: "184 / 250")
+    barraHeroe.innerText = `${hero.vidaActual} / ${hero.vidaMax}`;
+    
+    // 2. (Opcional pero recomendado) Actualizamos el ancho visual de la barra
+    // Regla de tres simple: (VidaActual / VidaMax) * 100 = Porcentaje
+    const porcentajeHeroe = (hero.vidaActual / hero.vidaMax) * 100;
+    barraHeroe.style.width = `${porcentajeHeroe}%`;
+
+
+    // --- ACTUALIZAR VILLANO ---
+    const barraVillano = document.getElementById('villain-hp');
+    
+    // 1. Texto
+    barraVillano.innerText = `${villain.vidaActual} / ${villain.vidaMax}`;
+    
+    // 2. Ancho
+    const porcentajeVillano = (villain.vidaActual / villain.vidaMax) * 100;
+    barraVillano.style.width = `${porcentajeVillano}%`;
+} */
+    function actualizarBarras() {
+    // --- ACTUALIZAR HÉROE ---
+    const textoHeroe = document.getElementById('vida-heroe');
+    const rellenoHeroe = document.getElementById('barra-fill-heroe'); // NUEVO ID
+    
+    if (textoHeroe && rellenoHeroe) {
+        // 1. Actualizamos el número
+        textoHeroe.innerText = `${hero.vidaActual} / ${hero.vidaMax}`;
+        
+        // 2. Actualizamos el ancho de la barra verde
+        const porcentajeHeroe = (hero.vidaActual / hero.vidaMax) * 100;
+        rellenoHeroe.style.width = `${porcentajeHeroe}%`;
+    }
+
+    // --- ACTUALIZAR VILLANO ---
+    const textoVillano = document.getElementById('vida-villano');
+    const rellenoVillano = document.getElementById('barra-fill-villano'); // NUEVO ID
+    
+    if (textoVillano && rellenoVillano) {
+        textoVillano.innerText = `${villain.vidaActual} / ${villain.vidaMax}`;
+        
+        const porcentajeVillano = (villain.vidaActual / villain.vidaMax) * 100;
+        rellenoVillano.style.width = `${porcentajeVillano}%`;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    // ... tus otras configuraciones de botones ...
+
+    // ¡LLAMADA INICIAL!
+    actualizarBarras(); 
+});
+
+function agregarLog(mensaje) {
+    // 1. Encontramos la ventana del log
+    const logWindow = document.getElementById('combat-log');
+    
+    if (!logWindow) return; // Seguridad por si no existe el div
+
+    // 2. Creamos un nuevo párrafo <p>
+    const nuevoParrafo = document.createElement('p');
+    nuevoParrafo.innerText = mensaje;
+    
+    // 3. Lo añadimos al final de la ventana
+    logWindow.appendChild(nuevoParrafo);
+
+    // 4. ¡TRUCO! Hacemos scroll automático hacia abajo para ver lo último
+    logWindow.scrollTop = logWindow.scrollHeight;
+}

@@ -1,5 +1,6 @@
 body {
     background-color: rgb(240, 226, 209);
+    font-family: 'Cormorant Unicase', serif;
 }
 
 main{
@@ -102,6 +103,9 @@ main{
     background-color: rgba(31, 30, 30, 0.856);
     box-shadow: 15px 15px 15px rgb(158, 158, 158);
     border-radius: 5%;
+    background-image: url("../assets/img/Silver-forest.png") ;
+    font-family: 'Cormorant Unicase', serif;
+    
     
 }
 
@@ -110,8 +114,47 @@ main{
     margin: 5px;
 
 }
-.scenario {
+/* .scenario {
     height: 300px;
+} */
+/* #combat-log {
+    height: 250px;
+    width: 600px;
+    border-width: 4px solid black;
+    background-color: rgba(228, 183, 125, 0.75);
+    margin-left: 90px;
+    margin-bottom: 10px;
+
+} */
+.log-window {
+    /* Tamaño y posición */
+    width: 80%; /* O el ancho que prefieras */
+    height: 150px; /* Altura fija para que no crezca infinitamente */
+    margin: 20px auto; /* Centrado horizontalmente y separado verticalmente */
+    font-family: 'Cormorant Unicase', serif;
+    /* Estética de ventana */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    border: 3px solid #5e3e23; /* Borde estilo madera o RPG */
+    border-radius: 8px;
+    padding: 10px;
+    
+    /* Comportamiento del texto */
+    color: white;
+    font-family: monospace; /* Fuente tipo terminal o pixelada si tienes */
+    font-size: 14px;
+    text-align: left;
+    
+    /* ¡IMPORTANTE! Para que haga scroll si hay mucho texto */
+    overflow-y: auto; 
+    
+    /* Opcional: Sombra para que destaque del fondo */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+/* Un pequeño estilo para los párrafos dentro del log */
+.log-window p {
+    margin: 5px 0;
+    line-height: 1.4;
 }
 .hp {
     width: 400px;
@@ -120,15 +163,44 @@ main{
     border: 2px solid black;
     border-radius: 5px;
     margin: 10px ;
+    color: rgb(19, 18, 18);              /* Texto blanco */
+    font-weight: bold;         /* Negrita */
+    font-size: 14px;           /* Tamaño legible */
+    
+    display: flex;             /* Activamos Flexbox */
+    align-items: center;       /* Centrar verticalmente */
+    justify-content: center;   /* Centrar horizontalmente */
+    
+    transition: width 0.5s;    /* Animación suave si cambia el ancho */
 }
+h3 {
+    color: rgb(167, 167, 167);
+    text-decoration: solid;
+    font-size: 40px;
+    font-weight: 900;
+    text-shadow: 2px 2px 3px rgb(0, 0, 0); /* Sombra para que se lea mejor */
+}
+/* .titulo{
+    display: flexbox;
+    text-align: center;
+    height: 50px;
+    width: 325px;
+    background-color: #444444d0;
+    border: 3px solid #5e3e23; 
+} */
+
+
 
 .villain-screen {
     display: inline-flex;
-    border:3px solid black;
     border-radius: 6%;
     width: 700px;
-    margin-top :10px ;
+    margin-top :0px ;
     margin-bottom: 10px;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    border: 3px solid #5e3e23; /* Borde estilo madera o RPG */
+    border-radius: 8px;
+    font-family: 'Cormorant Unicase', serif;
 }
 
 /* .hero-screen {
@@ -139,6 +211,7 @@ main{
     margin-left: 200px; */
 .hero-screen {
     display: grid;
+    font-family: 'Cormorant Unicase', serif;
   /* Definimos 3 columnas de igual ancho (1fr 1fr 1fr) */
   /* Las dos primeras son para la izquierda, la tercera para el bloque 5 */
     grid-template-columns: 1fr 1fr 1.5fr; 
@@ -153,8 +226,11 @@ main{
     width: 700px;
     border-radius: 6%;
     margin-left: 60px;
-    margin-top:10px;
-    border:3px solid black;
+/*     margin-top:10px; */
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo negro semitransparente */
+    border: 3px solid #5e3e23; /* Borde estilo madera o RPG */
+    border-radius: 8px;
+/*       */
 }
 .box-1 { grid-area: area1;  }
 /* .box-2 { grid-area: area2;  }
@@ -197,3 +273,41 @@ main{
     transition: all 5s;
 }
 
+/* EL VASO (Fondo vacío) */
+.barra-contenedor {
+    background-color: #444; /* Gris oscuro (el color de "vacío") */
+    position: relative;     /* Necesario para que el texto flote encima */
+    overflow: hidden;       /* Para que las esquinas redondeadas recorten el relleno */
+    border: 2px solid black;
+    /* Mantenemos tus alturas y bordes previos si los tenías en .box-1 o .hp */
+    display: flex;              /* Nos aseguramos que use flexbox */
+    justify-content: flex-start; /* Esto obliga a la barra verde a pegarse a la IZQUIERDA */
+}
+
+/* EL AGUA (Color vida) */
+.barra-relleno {
+    background-color: #2ecc71; /* Verde vida */
+    height: 100%;              /* Ocupa todo el alto */
+    width: 100%;               /* Empieza lleno */
+    transition: width 0.5s;    /* Animación suave */
+}
+
+/* EL TEXTO (Flotando encima) */
+.barra-texto {
+    position: absolute; /* Se sale del flujo para flotar encima */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    
+    /* Centramos el texto perfectamente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    color: white;
+    font-weight: bold;
+    font-family: monospace;
+    text-shadow: 1px 1px 2px black; /* Sombra para que se lea mejor */
+    z-index: 10; /* Aseguramos que esté encima del color verde */
+}
