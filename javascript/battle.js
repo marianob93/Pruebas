@@ -170,16 +170,13 @@ function mostrarHabilidades() {
             document.getElementById('menu-habilidades').classList.add('oculto');
             document.getElementById('menu-principal').classList.remove('oculto');
         });
-
-        // Metemos botón en caja, y caja en el menú
+    // Metemos botón en caja, y caja en el menú
         cajaDiv.appendChild(boton);
         contenedor.appendChild(cajaDiv);
     });
-
     // 4. SIEMPRE agregamos el botón "Volver" al final en la box-5
     const cajaVolver = document.createElement('div');
     cajaVolver.className = 'box-5';
-    
     const btnVolver = document.createElement('button');
     btnVolver.className = 'action-button';
     btnVolver.style.backgroundColor = '#7f8c8d'; // Color gris
